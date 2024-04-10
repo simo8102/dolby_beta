@@ -2,10 +2,12 @@ package com.raincat.dolby_beta.hook;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.raincat.dolby_beta.helper.ExtraHelper;
 import com.raincat.dolby_beta.helper.ScriptHelper;
 import com.raincat.dolby_beta.helper.SettingHelper;
+import com.raincat.dolby_beta.utils.Tools;
 
 import java.lang.reflect.Field;
 import java.net.InetSocketAddress;
@@ -108,9 +110,6 @@ public class ProxyHook {
         }
 
         if (!isPlayProcess)
-            findAndHookMethod("com.netease.cloudmusic.activity.LoadingActivity", context.getClassLoader(), "onCreate", Bundle.class, new XC_MethodHook() {
-                @Override
-                protected void afterHookedMethod(MethodHookParam param) {
                     ExtraHelper.setExtraDate(ExtraHelper.SCRIPT_STATUS, "0");
                     if (SettingHelper.getInstance().getSetting(SettingHelper.proxy_master_key)) {
                         ScriptHelper.initScript(context, false);
@@ -120,8 +119,6 @@ public class ProxyHook {
                             ScriptHelper.startScript();
                         }
                     }
-                }
-            });
     }
 
     /**
